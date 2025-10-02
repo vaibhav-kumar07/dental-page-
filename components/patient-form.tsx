@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { successToast } from "./use-toast";
 
 export function PatientForm() {
   const [formData, setFormData] = useState({
@@ -80,7 +81,7 @@ export function PatientForm() {
       if (!result.success) {
         throw new Error(result.error || "Something went wrong");
       }
-
+      successToast("Patient Added Successfully");
     } catch (error: any) {
       setError(error.message || "An error occurred");
     } finally {

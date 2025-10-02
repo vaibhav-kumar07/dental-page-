@@ -13,9 +13,8 @@ export interface PatientData {
 }
 
 export async function addPatient(data: PatientData) {
-  await connectDB();
-  const newObjectId=new ObjectId("507f191e810c19729de860ea")
-const newData={...data,doctor_id:newObjectId}
+  const newObjectId = new ObjectId("507f191e810c19729de860ea");
+  const newData = { ...data, doctor_id: newObjectId };
   try {
     const newPatient = new Patient(newData);
     const savedPatient = await newPatient.save();
@@ -24,4 +23,9 @@ const newData={...data,doctor_id:newObjectId}
     console.error("Error adding patient:", error);
     return { success: false, error: error.message || "Internal Server Error" };
   }
+}
+
+export async function getAllPatient() {
+  await connectDB();
+  return await Patient.find();
 }
