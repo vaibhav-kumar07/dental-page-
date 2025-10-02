@@ -25,7 +25,7 @@ export async function addPatient(data: PatientData) {
   }
 }
 
-export async function getAllPatient() {
-  await connectDB();
-  return await Patient.find();
-}
+export const getPatients = async () => {
+  await connectDB(); //
+  return Patient.find();
+};

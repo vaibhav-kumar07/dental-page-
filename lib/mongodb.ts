@@ -7,17 +7,30 @@ if (!MONGODB_URI) {
   throw new Error("Please add your MongoDB connection string to .env");
 }
 
-let isConnected = false;
+/**
+ * Caching the connection in global (for Next.js hot reload in dev)
+ */
+let cached = (global as any).mongoose;
+
+if (!cached) {
+  cached = (global as any).mongoose = { conn: null, promise: null };
+}
 
 export const connectDB = async () => {
-  if (isConnected) return;
+  if (cached.conn) return cached.conn;
 
-  try {
-    await mongoose.connect(MONGODB_URI);
-    isConnected = true;
-    console.log("✅ MongoDB connected");
-  } catch (error) {
-    console.error("❌ MongoDB connection error", error);
-    throw error;
+  if (!cached.promise) {
+    cached.promise = mongoose
+      .connect(MONGODB_URI, {
+        dbName: "your-db-name", // optional but good practice
+        bufferCommands: false,
+      })
+      .then((mongoose) => {
+        console.log("✅ MongoDB connected");
+        return mongoose;
+      });
   }
+
+  cached.conn = await cached.promise;
+  return cached.conn;
 };
