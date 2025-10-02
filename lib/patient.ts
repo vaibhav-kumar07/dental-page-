@@ -2,6 +2,7 @@ import { connectDB } from "./mongodb";
 import { Patient, IPatient } from "./model/patient";
 import { ObjectId } from "mongodb";
 
+import { revalidatePath } from "next/cache";
 export interface PatientData {
   doctor_id?: string;
   patient_name: string;
@@ -19,6 +20,7 @@ export async function addPatient(data: PatientData) {
   try {
     const newPatient = new Patient(newData);
     const savedPatient = await newPatient.save();
+    Patient.find();
     return { success: true, data: savedPatient };
   } catch (error: any) {
     console.error("Error adding patient:", error);
@@ -28,5 +30,5 @@ export async function addPatient(data: PatientData) {
 
 export const getPatients = async () => {
   await connectDB(); //
-  return Patient.find();
+  return await Patient.find();
 };

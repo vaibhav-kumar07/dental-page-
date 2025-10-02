@@ -22,7 +22,7 @@ export const connectDB = async () => {
   if (!cached.promise) {
     cached.promise = mongoose
       .connect(MONGODB_URI, {
-        dbName: "your-db-name", // optional but good practice
+        dbName: "patients", // optional but good practice
         bufferCommands: false,
       })
       .then((mongoose) => {

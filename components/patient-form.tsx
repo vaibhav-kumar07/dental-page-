@@ -11,7 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { successToast } from "./use-toast";
+import { errorToast, successToast } from "./use-toast";
+import { createPatient } from "@/actions/patients";
 
 export function PatientForm() {
   const [formData, setFormData] = useState({
@@ -64,33 +65,27 @@ export function PatientForm() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          patient_name: formData.patientName,
-          age: Number.parseInt(formData.age),
-          gender: formData.gender,
-          disease_problem: formData.diseaseProblem,
-          address: formData.address,
-          contact: formData.contact,
-        }),
-      });
-
-      const result = await res.json();
-      if (!result.success) {
-        throw new Error(result.error || "Something went wrong");
+      const result = await createPatient(
+        formData.patientName,
+        Number(formData.age),
+        formData.gender,
+        formData.diseaseProblem,
+        formData.address,
+        formData.contact
+      );
+      if (result.success) {
+        successToast("Patient Added Successfully");
+        setFormData({
+          patientName: "",
+          age: "",
+          gender: "",
+          diseaseProblem: "",
+          address: "",
+          contact: "",
+        });
       }
-      successToast("Patient Added Successfully");
-      setFormData({
-        patientName: "",
-        age: "",
-        gender: "",
-        diseaseProblem: "",
-        address: "",
-        contact: "",
-      });
     } catch (error: any) {
+      errorToast(error);
       setError(error.message || "An error occurred");
     } finally {
       setIsLoading(false);
