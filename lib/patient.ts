@@ -13,6 +13,7 @@ export interface PatientData {
 }
 
 export async function addPatient(data: PatientData) {
+  await connectDB();
   const newObjectId = new ObjectId("507f191e810c19729de860ea");
   const newData = { ...data, doctor_id: newObjectId };
   try {

@@ -82,6 +82,14 @@ export function PatientForm() {
         throw new Error(result.error || "Something went wrong");
       }
       successToast("Patient Added Successfully");
+      setFormData({
+        patientName: "",
+        age: "",
+        gender: "",
+        diseaseProblem: "",
+        address: "",
+        contact: "",
+      });
     } catch (error: any) {
       setError(error.message || "An error occurred");
     } finally {
