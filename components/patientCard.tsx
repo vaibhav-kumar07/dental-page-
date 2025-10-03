@@ -37,7 +37,7 @@ const ProblemItem = ({
   label: string;
   value: string | number;
 }) => (
-  <div className="flex items-start gap-3 p-3 rounded-2xl bg-gray-50">
+  <div className="flex items-start gap-3 p-3 rounded-2xl ">
     {/* Icon */}
     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-100 text-red-600 flex-shrink-0">
       {icon}
@@ -65,7 +65,7 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
       </CardHeader>
 
       {/* Body */}
-      <CardContent className=" p-3 space-y-3  ">
+      <CardContent className=" p-2 space-y-3  ">
         {/* Problem - Full width */}
         <div className="w-full space-y-3">
           <ProblemItem
@@ -82,7 +82,7 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
         </div>
 
         {/* Stacked fields */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
+        <div className="w-full grid grid-cols-2 sm:grid-cols-2 gap-3">
           <InfoItem
             icon={<span className="font-bold">🎂</span>}
             label="Age"
