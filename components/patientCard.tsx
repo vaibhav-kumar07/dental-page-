@@ -23,7 +23,7 @@ const InfoItem = ({
     <div className="flex-1">
       <p className="text-xs font-medium text-gray-500">{label}</p>
       <p className="text-sm font-semibold text-gray-800 break-words">
-        {"89304850093"}
+        {value || "N/A"}
       </p>
     </div>
   </div>
