@@ -16,7 +16,7 @@ const InfoItem = ({
   label: string;
   value: string | number;
 }) => (
-  <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+  <div className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50">
     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
       {icon}
     </div>
@@ -37,7 +37,7 @@ const ProblemItem = ({
   label: string;
   value: string | number;
 }) => (
-  <div className="flex items-start gap-3 p-3 rounded-lg bg-gray-50">
+  <div className="flex items-start gap-3 p-3 rounded-2xl bg-gray-50">
     {/* Icon */}
     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-100 text-red-600 flex-shrink-0">
       {icon}
@@ -55,9 +55,9 @@ const ProblemItem = ({
 
 const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
   return (
-    <Card className="w-full max-w-2xl mx-auto rounded-3xl shadow-lg overflow-hidden p-0 ">
+    <Card className="w-full max-w-2xl mx-auto rounded-3xl shadow-lg overflow-hidden p-0 gap-0">
       {/* Header */}
-      <CardHeader className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <CardHeader className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between bg-yellow-300">
         <CardTitle className="text-xl font-bold flex items-center gap-2 px-2">
           <User className="w-6 h-6" />
           <span>{patient.patient_name ?? "Unknown Patient"}</span>
@@ -65,9 +65,9 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
       </CardHeader>
 
       {/* Body */}
-      <CardContent className=" pb-6 px-2 space-y-4">
+      <CardContent className=" p-3 space-y-3  ">
         {/* Problem - Full width */}
-        <div className="w-full space-y-4">
+        <div className="w-full space-y-3">
           <ProblemItem
             icon={<HeartPulse className="w-5 h-5 text-red-500" />}
             label="Problem"
@@ -82,7 +82,7 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
         </div>
 
         {/* Stacked fields */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
           <InfoItem
             icon={<span className="font-bold">🎂</span>}
             label="Age"
