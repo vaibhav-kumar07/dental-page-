@@ -7,53 +7,81 @@ interface PatientCardProps {
   patient: IPatient;
 }
 
+const InfoItem = ({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string | number;
+}) => (
+  <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+      {icon}
+    </div>
+    <div className="flex-1">
+      <p className="text-xs font-medium text-gray-500">{label}</p>
+      <p className="text-sm font-semibold text-gray-800 break-words">
+        {value || "N/A"}
+      </p>
+    </div>
+  </div>
+);
+
 const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
   return (
-    <Card className="w-full max-w-md mx-auto rounded-2xl shadow-md hover:shadow-lg transition p-4">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-xl font-semibold flex items-center gap-2">
-          <User className="w-5 h-5 text-blue-500" />
-          {patient.patient_name}
+    <Card className="w-full max-w-2xl mx-auto rounded-3xl shadow-lg overflow-hidden p-0 ">
+      {/* Header */}
+      <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <CardTitle className="text-xl font-bold flex items-center gap-2 px-2">
+          <User className="w-6 h-6" />
+          <span>{patient.patient_name ?? "Unknown Patient"}</span>
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-3 text-gray-700">
-        <div className="flex justify-between">
-          <span className="font-medium">Age:</span>
-          <span>{patient.age}</span>
+      {/* Body */}
+      <CardContent className=" pb-6 px-2 space-y-4">
+        {/* Problem - Full width */}
+        <div className="w-full">
+          <InfoItem
+            icon={<HeartPulse className="w-5 h-5 text-red-500" />}
+            label="Problem"
+            value={patient.disease_problem ?? "N/A"}
+          />
+          <InfoItem
+            icon={<MapPin className="w-5 h-5 text-green-500" />}
+            label="Address"
+            value={patient.address ?? "N/A"}
+          />
         </div>
 
-        <div className="flex justify-between">
-          <span className="font-medium">Gender:</span>
-          <span>{patient.gender}</span>
-        </div>
-
-        <div className="flex justify-between items-center">
-          <span className="font-medium flex items-center gap-1">
-            <HeartPulse className="w-4 h-4 text-red-500" /> Problem:
-          </span>
-          <span>{patient.disease_problem}</span>
-        </div>
-
-        <div className="flex justify-between items-center">
-          <span className="font-medium flex items-center gap-1">
-            <MapPin className="w-4 h-4 text-green-500" /> Address:
-          </span>
-          <span className="text-right">{patient.address}</span>
-        </div>
-
-        <div className="flex justify-between items-center">
-          <span className="font-medium flex items-center gap-1">
-            <Phone className="w-4 h-4 text-purple-500" /> Contact:
-          </span>
-          <span>{patient.contact}</span>
-        </div>
-
-        <div className="flex justify-between items-center text-sm text-gray-500">
-          <span className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" /> Created At:
-          </span>
-          <span>{new Date(patient.created_at).toLocaleDateString()}</span>
+        {/* Stacked fields */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+          <InfoItem
+            icon={<span className="font-bold">🎂</span>}
+            label="Age"
+            value={patient.age ?? "N/A"}
+          />
+          <InfoItem
+            icon={<span className="font-bold">⚧</span>}
+            label="Gender"
+            value={patient.gender ?? "N/A"}
+          />
+          <InfoItem
+            icon={<Phone className="w-5 h-5 text-purple-500" />}
+            label="Contact"
+            value={patient.contact ?? "N/A"}
+          />
+          <InfoItem
+            icon={<Calendar className="w-5 h-5 text-gray-500" />}
+            label="Added On"
+            value={
+              patient.created_at
+                ? new Date(patient.created_at).toLocaleDateString()
+                : "N/A"
+            }
+          />
         </div>
       </CardContent>
     </Card>

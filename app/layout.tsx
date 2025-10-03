@@ -1,8 +1,8 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import { ToastProvider } from "@/components/use-toast";
-import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Guru Dental Clinic",
@@ -16,32 +16,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col w-full ">
         <ToastProvider />
+
         {/* Header */}
-        <header className="bg-blue-600 text-white p-4 shadow-md">
-          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center">
-            <Link href={"/"} className="text-xl font-bold">
-              Guru Dental Clinic
-            </Link>
-            <div className="text-sm">
-              Dr. Love Preet Singh <br /> BDS (General Dentist)
-            </div>
-          </div>
-        </header>
+        <Header />
 
         {/* Page Content */}
-        <main className="w-full md:flex-grow max-w-6xl mx-auto p-6">
+        <main className="w-full flex-grow max-w-6xl mx-auto p-3 md:p-6">
           {children}
         </main>
 
         {/* Footer */}
-        <footer className="bg-gray-800 text-white p-4 mt-6">
-          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-sm">
-            <span>© 2025 Guru Dental Clinic</span>
-            <div>Contact: +91 | Email: guruclinic@example.com</div>
-          </div>
-        </footer>
+        <Footer />
       </body>
     </html>
   );
