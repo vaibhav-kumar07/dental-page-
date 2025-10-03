@@ -23,7 +23,7 @@ const InfoItem = ({
     <div className="flex-1">
       <p className="text-xs font-medium text-gray-500">{label}</p>
       <p className="text-sm font-semibold text-gray-800 break-words">
-        {value || "N/A"}
+        {"89304850093"}
       </p>
     </div>
   </div>
@@ -37,7 +37,7 @@ const ProblemItem = ({
   label: string;
   value: string | number;
 }) => (
-  <div className="flex items-start gap-3 p-3 rounded-2xl ">
+  <div className="flex items-start gap-3 p-3 rounded-2xl bg-gray-50">
     {/* Icon */}
     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-100 text-red-600 flex-shrink-0">
       {icon}
@@ -55,7 +55,7 @@ const ProblemItem = ({
 
 const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
   return (
-    <Card className="w-full max-w-2xl mx-auto rounded-3xl shadow-lg overflow-hidden p-0 gap-0">
+    <Card className="w-full max-w-2xl mx-auto rounded-3xl shadow-xl overflow-hidden p-0 gap-0">
       {/* Header */}
       <CardHeader className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between bg-yellow-300">
         <CardTitle className="text-xl font-bold flex items-center gap-2 px-2">
@@ -65,7 +65,7 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
       </CardHeader>
 
       {/* Body */}
-      <CardContent className=" p-2 space-y-3  ">
+      <CardContent className=" p-3 space-y-3  ">
         {/* Problem - Full width */}
         <div className="w-full space-y-3">
           <ProblemItem
@@ -82,7 +82,7 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
         </div>
 
         {/* Stacked fields */}
-        <div className="w-full grid grid-cols-2 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
           <InfoItem
             icon={<span className="font-bold">🎂</span>}
             label="Age"
@@ -94,7 +94,7 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
             value={patient.gender ?? "N/A"}
           />
           <InfoItem
-            icon={<Phone className="w-5 h-5 text-purple-500" />}
+            icon={<Phone className="w-5 h- text-purple-500" />}
             label="Contact"
             value={patient.contact ?? "N/A"}
           />
