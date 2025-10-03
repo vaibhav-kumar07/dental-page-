@@ -28,12 +28,36 @@ const InfoItem = ({
     </div>
   </div>
 );
+const ProblemItem = ({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string | number;
+}) => (
+  <div className="flex items-start gap-3 p-3 rounded-lg bg-gray-50">
+    {/* Icon */}
+    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-100 text-red-600 flex-shrink-0">
+      {icon}
+    </div>
+
+    {/* Content */}
+    <div className="flex-1">
+      <p className="text-xs font-medium text-gray-500 mb-1">{label}</p>
+      <p className="text-sm font-semibold text-gray-800 leading-relaxed break-words whitespace-pre-wrap">
+        {value || "N/A"}
+      </p>
+    </div>
+  </div>
+);
 
 const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
   return (
     <Card className="w-full max-w-2xl mx-auto rounded-3xl shadow-lg overflow-hidden p-0 ">
       {/* Header */}
-      <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <CardHeader className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <CardTitle className="text-xl font-bold flex items-center gap-2 px-2">
           <User className="w-6 h-6" />
           <span>{patient.patient_name ?? "Unknown Patient"}</span>
@@ -43,12 +67,13 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
       {/* Body */}
       <CardContent className=" pb-6 px-2 space-y-4">
         {/* Problem - Full width */}
-        <div className="w-full">
-          <InfoItem
+        <div className="w-full space-y-4">
+          <ProblemItem
             icon={<HeartPulse className="w-5 h-5 text-red-500" />}
             label="Problem"
             value={patient.disease_problem ?? "N/A"}
           />
+
           <InfoItem
             icon={<MapPin className="w-5 h-5 text-green-500" />}
             label="Address"
