@@ -57,7 +57,7 @@ export default function PatientBackup() {
         "Disease / Problem": p.disease_problem,
         "Address": p.address,
         "Contact": p.contact,
-        "Doctor ID": p.doctor_id,
+        "Doctor ID": "Dr. Lovepreet Singh BDS (General Dentist)",
         "Created At": new Date(p.created_at).toLocaleString(),
       }));
 
