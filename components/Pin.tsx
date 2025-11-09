@@ -83,7 +83,9 @@ export default function PinDialog({ open, }: PinDialogProps) {
                 value={val}
                 onChange={(e) => handleChange(i, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(i, e)}
-                ref={(el) => (inputsRef.current[i] = el)}
+                    ref={(el) => {
+                    inputsRef.current[i] = el;
+                    }}
                 className="w-12 h-12 text-center text-lg border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             ))}
