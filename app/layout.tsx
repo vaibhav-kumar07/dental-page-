@@ -3,6 +3,8 @@ import "./globals.css";
 import { ToastProvider } from "@/components/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PinForm from "@/components/Pin";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Guru Dental Clinic",
@@ -14,11 +16,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pinSuccess = cookies().get("daily_pin")?.value === new Date().toISOString().split("T")[0];
+console.log("pinSuccess", pinSuccess)
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col w-full ">
         <ToastProvider />
-
+        <PinForm open={!pinSuccess} />
         {/* Header */}
         <Header />
 

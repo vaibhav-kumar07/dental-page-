@@ -28,7 +28,43 @@ export async function addPatient(data: PatientData) {
   }
 }
 
-export const getPatients = async () => {
-  await connectDB(); //
-  return await Patient.find();
+export const getPatients = async ({
+  page = 1,
+  limit = 10,
+  from,
+  to,
+}: {
+  page?: number;
+  limit?: number;
+  from?: string;
+  to?: string;
+}) => {
+  await connectDB();
+
+  const fromDate = from ? new Date(from) : undefined;
+  const toDate = to ? new Date(to) : undefined;
+
+  const query: any = {};
+
+  if (fromDate || toDate) {
+    query.created_at = {}; // ✅ correct field name
+    if (fromDate) query.created_at.$gte = fromDate;
+    if (toDate) {
+      const endOfDay = new Date(toDate);
+      endOfDay.setHours(23, 59, 59, 999);
+      query.created_at.$lte = endOfDay;
+    }
+  }
+
+  const allPatients = await Patient.find(query)
+    .sort({ _id: -1 })
+    .skip((page - 1) * limit)
+    .limit(limit);
+
+  const total = await Patient.countDocuments(query);
+
+  return {
+    patients: allPatients,
+    total,
+  };
 };
